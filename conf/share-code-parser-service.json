@@ -1,0 +1,20 @@
+{
+  "kind": "Service",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "share-code-parser-service"
+  },
+  "spec": {
+    "type": "LoadBalancer",
+    "selector": {
+      "app": "share-code-parser-pod"
+    },
+    "ports": [
+      {
+        "protocol": "TCP",
+        "port": 9000,
+        "targetPort": 9000
+      }
+    ]
+  }
+}

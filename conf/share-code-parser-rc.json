@@ -1,0 +1,41 @@
+{
+  "kind": "ReplicationController",
+  "apiVersion": "v1",
+  "metadata":{
+    "name":"share-code-parser-rc",
+    "labels":{
+      "name":"test"
+    }
+  },
+  "spec": {
+    "replicas": 1,
+    "selector": {
+      "app": "share-code-parser-pod"
+    },
+    "template": {
+      "metadata": {
+        "labels": {
+          "app": "share-code-parser-pod"
+        }
+      },
+      "spec": {
+        "volumes": null,
+        "containers": [
+          {
+            "name": "share-code-parser",
+            "image": "gcr.io/parception-123/share-code-parser:0.1",
+            "ports": [
+              {
+                "containerPort": 9000,
+                "protocol": "TCP"
+              }
+            ],
+            "imagePullPolicy": "IfNotPresent"
+          }
+        ],
+        "restartPolicy": "Always",
+        "dnsPolicy": "ClusterFirst"
+      }
+    }
+  }
+}
