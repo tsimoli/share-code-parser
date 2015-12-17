@@ -25,7 +25,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-slick" % "1.0.1",
   "com.typesafe.play" %% "play-slick-evolutions" % "1.0.1",
   "com.github.tminglei" %% "slick-pg" % "0.9.1",
-  "com.enragedginger" %% "akka-quartz-scheduler" % "1.4.0-akka-2.3.x"
+  "com.enragedginger" %% "akka-quartz-scheduler" % "1.4.0-akka-2.3.x",
+  ws
 )
 
 
