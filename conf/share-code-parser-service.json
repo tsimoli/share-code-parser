@@ -2,7 +2,7 @@
   "kind": "Service",
   "apiVersion": "v1",
   "metadata": {
-    "name": "share-code-parser-service"
+    "name": "scp-service"
   },
   "spec": {
     "type": "LoadBalancer",
