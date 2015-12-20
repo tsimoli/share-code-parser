@@ -21,14 +21,13 @@ class ShareCodeController extends Controller {
     request.body.validate[ShareCodePayload].map {
       case (shareCodePayload) =>
         val shareCodeDao = new ShareCodeDao()
-        shareCodeDao.findShareCode(shareCodePayload.shareCode).map { shareCodeOption =>
+        val subStringShareCode = if(shareCodePayload.shareCode.contains("%20")) shareCodePayload.shareCode.split("%20")(1) else shareCodePayload.shareCode
+        shareCodeDao.findShareCode(subStringShareCode).map { shareCodeOption =>
           shareCodeOption.map { shareCode =>
             BadRequest("Share code already inserted")
           }.getOrElse {
-            val subStringShareCode = shareCodePayload.shareCode.split("%20")
-            println(subStringShareCode)
-            MatchShareCodeParser.parseCode(subStringShareCode(1)).map { parsedOption =>
-              val shareCode = ShareCode(-1, subStringShareCode(1), parsedOption._1, parsedOption._2, parsedOption._3, "new", new DateTime())
+            MatchShareCodeParser.parseCode(subStringShareCode).map { parsedOption =>
+              val shareCode = ShareCode(-1, subStringShareCode, parsedOption._1, parsedOption._2, parsedOption._3, "new", new DateTime())
               shareCodeDao.insertShareCode(shareCode)
               Ok("Share code inserted")
             }.getOrElse(BadRequest("Invalid sharecode format"))
