@@ -37,6 +37,6 @@ routesGenerator := InjectedRoutesGenerator
 // Docker settings
 maintainer in Docker := "tsimoli"
 
-version in Docker := "0.12"
+version in Docker := "0.14"
 
 packageName in Docker := "share-code-parser"

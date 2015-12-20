@@ -17,7 +17,7 @@ class ParserProxyController @Inject() (ws: WSClient) extends Controller {
   def forwardToParser = Action.async(parse.json) { implicit request =>
     request.body.validate[ParseData].map {
       case (parseData) =>
-        val webservicePost = ws.url("parception-service:9000/api/parse").withRequestTimeout(10000)
+        val webservicePost = ws.url("http://parception-service.default.svc.cluster.local:9000/api/parse").withRequestTimeout(10000)
           .withAuth("parserTest", "parserTestPass", WSAuthScheme.BASIC)
           .withHeaders("Content-Type" -> "application/json")
         webservicePost.post(Json.toJson(parseData))
