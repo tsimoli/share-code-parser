@@ -8,7 +8,7 @@
     }
   },
   "spec": {
-    "replicas": 1,
+    "replicas": 2,
     "selector": {
       "app": "share-code-parser-pod"
     },
@@ -30,6 +30,12 @@
                 "protocol": "TCP"
               }
             ],
+            "resources": {
+              "limits":  {
+                "memory": "1Gi",
+                "cpu":  "250m"
+              }
+            },
             "imagePullPolicy": "IfNotPresent"
           }
         ],
