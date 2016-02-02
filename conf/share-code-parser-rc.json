@@ -23,7 +23,7 @@
         "containers": [
           {
             "name": "share-code-parser",
-            "image": "gcr.io/parception-123/share-code-parser:0.14",
+            "image": "gcr.io/parception-123/share-code-parser:0.19",
             "ports": [
               {
                 "containerPort": 9000,

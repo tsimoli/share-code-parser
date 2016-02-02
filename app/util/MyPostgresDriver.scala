@@ -8,7 +8,6 @@ with PgArraySupport
 with PgDateSupport
 with PgRangeSupport
 with PgHStoreSupport
-with PgPlayJsonSupport
 with PgSearchSupport
 with PgNetSupport
 with PgLTreeSupport {
@@ -18,7 +17,6 @@ with PgLTreeSupport {
 
   object MyAPI extends API with ArrayImplicits
   with DateTimeImplicits
-  with JsonImplicits
   with NetImplicits
   with LTreeImplicits
   with RangeImplicits

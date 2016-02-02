@@ -1,14 +1,18 @@
 package services
 
+import javax.inject.Inject
+
+import com.google.inject.ImplementedBy
 import models.ShareCode
 import org.joda.time.DateTime
-import play.api.Play
-import play.api.db.slick.DatabaseConfigProvider
+import play.api.db.slick.{HasDatabaseConfigProvider, DatabaseConfigProvider}
 import play.api.libs.concurrent.Execution.Implicits._
 import slick.driver.JdbcProfile
 import slick.lifted.Tag
 import util.MyPostgresDriver.api._
 import com.github.tototoshi.slick.PostgresJodaSupport._
+
+import scala.concurrent.Future
 
 trait ShareCodeComponent {
 
@@ -38,16 +42,21 @@ trait ShareCodeComponent {
   }
 }
 
-class ShareCodeDao extends ShareCodeComponent {
-  val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)
+@ImplementedBy(classOf[ShareCodeDaoImpl])
+trait ShareCodeDao {
+  def findShareCode(shareCode: String): Future[Option[ShareCode]]
+  def insertShareCode(shareCode: ShareCode): Future[Unit]
+}
+
+class ShareCodeDaoImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) extends ShareCodeDao with ShareCodeComponent with HasDatabaseConfigProvider[JdbcProfile]{
 
   val shareCodes = TableQuery[ShareCodes]
 
   def findShareCode(shareCode: String) = {
-    dbConfig.db.run(shareCodes.filter(_.shareCode === shareCode).result.headOption)
+    db.run(shareCodes.filter(_.shareCode === shareCode).result.headOption)
   }
 
   def insertShareCode(shareCode: ShareCode) = {
-    dbConfig.db.run(shareCodes += shareCode).map(_ => ())
+    db.run(shareCodes += shareCode).map(_ => ())
   }
 }

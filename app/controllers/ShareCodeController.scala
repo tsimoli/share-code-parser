@@ -8,8 +8,7 @@ import play.api.libs.json._
 import play.api.mvc._
 import services.ShareCodeDao
 import scala.concurrent.Future._
-
-
+import play.api.Play.current
 
 class ShareCodeController extends Controller {
   implicit val shareCodeRead = Json.format[ShareCodePayload]
@@ -20,7 +19,7 @@ class ShareCodeController extends Controller {
   def parseShareCode = Action.async(parse.json) { implicit request =>
     request.body.validate[ShareCodePayload].map {
       case (shareCodePayload) =>
-        val shareCodeDao = new ShareCodeDao()
+        lazy val shareCodeDao = current.injector.instanceOf[ShareCodeDao]
         val subStringShareCode = if(shareCodePayload.shareCode.contains("%20")) shareCodePayload.shareCode.split("%20")(1) else shareCodePayload.shareCode
         shareCodeDao.findShareCode(subStringShareCode).map { shareCodeOption =>
           shareCodeOption.map { shareCode =>

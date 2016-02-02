@@ -22,9 +22,8 @@ libraryDependencies ++= Seq(
   "org.slf4j" % "slf4j-nop" % "1.6.4",
   "org.postgresql" % "postgresql" % "9.4-1201-jdbc41",
   "com.github.tototoshi" %% "slick-joda-mapper" % "2.0.0",
-  "com.typesafe.play" %% "play-slick" % "1.0.1",
-  "com.typesafe.play" %% "play-slick-evolutions" % "1.0.1",
-  "com.github.tminglei" %% "slick-pg" % "0.9.1",
+  "com.typesafe.play" %% "play-slick" % "1.1.1",
+  "com.github.tminglei" %% "slick-pg" % "0.10.0",
   "com.enragedginger" %% "akka-quartz-scheduler" % "1.4.0-akka-2.3.x",
   ws
 )
@@ -37,6 +36,6 @@ routesGenerator := InjectedRoutesGenerator
 // Docker settings
 maintainer in Docker := "tsimoli"
 
-version in Docker := "0.14"
+version in Docker := "0.19"
 
 packageName in Docker := "share-code-parser"
